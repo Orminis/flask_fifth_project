@@ -14,8 +14,20 @@ class BaseUserModel(db.Model):
 
 
 # клас за потребителите които имат оплакване
-class Complainer(BaseUserModel):
-    __tablename__ = 'complainers'
+class ComplainerModel(BaseUserModel):
+    __tablename__ = "complainers"
 
     role = db.Column(db.Enum(UserRole), default=UserRole.complainer, nullable=False)
     # complains = db.relationship("ComplaintModel", backref="complaint", lazy="dynamic")
+
+
+class ApproverModel(BaseUserModel):
+    __tablename__ = "approvers"
+
+    role = db.Column(db.Enum(UserRole), default=UserRole.approver, nullable=False)
+
+
+class Admin(BaseUserModel):
+    __tablename__ = "admins"
+
+    role = db.Column(db.Enum(UserRole),default=UserRole.admin, nullable=False)
