@@ -1,6 +1,7 @@
 from db import db
 from models.enums import UserRole
 
+
 # основен клас за всички потребители
 class BaseUserModel(db.Model):
     __abstract__ = True
@@ -18,7 +19,7 @@ class ComplainerModel(BaseUserModel):
     __tablename__ = "complainers"
 
     role = db.Column(db.Enum(UserRole), default=UserRole.complainer, nullable=False)
-    # complains = db.relationship("ComplaintModel", backref="complaint", lazy="dynamic")
+    complains = db.relationship("ComplaintModel", backref="complaint", lazy="dynamic")
 
 
 class ApproverModel(BaseUserModel):
@@ -27,7 +28,7 @@ class ApproverModel(BaseUserModel):
     role = db.Column(db.Enum(UserRole), default=UserRole.approver, nullable=False)
 
 
-class Admin(BaseUserModel):
+class AdminModel(BaseUserModel):
     __tablename__ = "admins"
 
-    role = db.Column(db.Enum(UserRole),default=UserRole.admin, nullable=False)
+    role = db.Column(db.Enum(UserRole), default=UserRole.admin, nullable=False)
