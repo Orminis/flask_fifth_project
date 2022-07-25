@@ -10,7 +10,7 @@ class ComplaintModel(db.Model):
     description = db.Column(db.Text, nullable=False)
     photo_url = db.Column(db.String(255), nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    created_on = db.Column(db.DateTime, server_default=func.utcnow())
+    created_on = db.Column(db.DateTime, server_default=func.now())
     status = db.Column(db.Enum(ComplaintState), default=ComplaintState.pending, nullable=False)
     # релация/връзка към ComplainerModel
     complainer_id = db.Column(db.Integer, db.ForeignKey("complainers.id"), nullable=False)
