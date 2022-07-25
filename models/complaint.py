@@ -12,5 +12,6 @@ class ComplaintModel(db.Model):
     amount = db.Column(db.Float, nullable=False)
     created_on = db.Column(db.DateTime, server_default=func.utcnow())
     status = db.Column(db.Enum(ComplaintState), default=ComplaintState.pending, nullable=False)
+    # релация/връзка към ComplainerModel
     complainer_id = db.Column(db.Integer, db.ForeignKey("complainers.id"), nullable=False)
     complainer = db.relationship("ComplainerModel")
