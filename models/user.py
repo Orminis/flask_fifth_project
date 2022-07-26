@@ -20,7 +20,7 @@ class ComplainerModel(BaseUserModel):
 
     role = db.Column(db.Enum(UserRole), default=UserRole.complainer, nullable=False)
     complains = db.relationship("ComplaintModel", backref="complaint", lazy="dynamic")
-
+    location = db.Column(db.String(100), nullable=True)
 
 class ApproverModel(BaseUserModel):
     __tablename__ = "approvers"
