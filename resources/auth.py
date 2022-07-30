@@ -2,11 +2,12 @@ from flask import request
 from flask_restful import Resource
 
 from managers.complainer import ComplainerManager
-from models.user import ComplainerModel
+from schemas.request.auth import RegisterSchemaRequest, LoginSchemaRequest
+from utils.decorators import validate_schema
 
 
 class RegisterResource(Resource):
-    # TODO: validation of data
+    @validate_schema(RegisterSchemaRequest)
     def post(self):
         data = request.get_json()
         token = ComplainerManager.register(data)
@@ -14,7 +15,8 @@ class RegisterResource(Resource):
 
 
 class LoginResource(Resource):
+    @validate_schema(LoginSchemaRequest)
     def post(self):
         data = request.get_json()
-        user = ComplainerModel(**data)
-        return user
+        token = ComplainerManager.login(data)
+        return {"token": token}, 200
