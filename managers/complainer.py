@@ -1,4 +1,5 @@
-from werkzeug.security import generate_password_hash
+from werkzeug.exceptions import BadRequest
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import db
 from managers.auth import AuthManager
@@ -14,3 +15,11 @@ class ComplainerManager:
         db.session.commit()
         return AuthManager.encode_token(user)
 
+    @staticmethod
+    def login(login_data):
+        complainer = ComplainerModel.query.filter_by(email=login_data["email"]).first()
+        if not complainer:
+            raise BadRequest("No such Email!")
+        if check_password_hash(complainer.password, login_data["password"]):
+            return AuthManager.encode_token(complainer)
+        raise BadRequest("Wrong credentials!")

@@ -2,7 +2,7 @@ from decouple import config
 from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
-
+# още тук вдигаме обект от SQLAlchemy
 from db import db
 from resources.routes import routes
 
