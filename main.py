@@ -1,3 +1,4 @@
+from decouple import config
 from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
@@ -9,10 +10,9 @@ app = Flask(__name__)
 # Начин(метод) да се конфигурира и свърже app с db след като са инициализирани и създадени в други файлове
 db.init_app(app)
 
-# da izwadim configuration = config("DEV_CONFIGURATION_LINK") w env a ne da q hardcodwame
 # конфигурацията за апп-а е във файла config
-# app.config.from_object("config.DevelopmentConfig")
-app.config.from_envvar("config.FLASK_CONFIG")
+configuration = config("CONFIGURATION")
+app.config.from_object(configuration)
 
 api = Api(app)
 migrate = Migrate(app, db)
